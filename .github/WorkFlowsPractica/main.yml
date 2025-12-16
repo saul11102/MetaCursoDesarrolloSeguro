@@ -1,6 +1,0 @@
-#Componentes de análisis
-#Detección de secretos: Evita que credenciales, API Keys o contraseñas se suban al repositorio.
-#análisis de composición de software: Analiza las librerías y dependencias
-#análisis de código estático: Revisa el código fuente sin ejecutarlo para encontrar errores de lógica, buffer overflows o inyecciones SQL.
-#análisis de infraestructura como código: validar la configuración segura de docker
-#análisis dinámico: Ataca la aplicación mientras está corriendo en un entorno de pruebas (staging) para ver cómo responde.
