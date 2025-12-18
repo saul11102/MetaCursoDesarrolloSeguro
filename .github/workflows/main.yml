@@ -1,40 +1,39 @@
-name: initial-setup
+name: Main Security Pipeline
 
 on:
   push:
   workflow_dispatch:
 
-# Permisos necesarios para subir reportes de seguridad a GitHub
 permissions:
   contents: read
   security-events: write
   actions: read
 
 jobs:
+  # initial-setup
   setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Confirmar inicialización
-        run: echo "Proyecto inicializado correctamente."
+        run: echo "Pipeline de seguridad inicializado correctamente."
 
-  # 1. Detección de secretos : Evita que credenciales, API Keys o contraseñas se suban al repositorio.
-  security-secrets:
+  # SAST - Snyk
+  security-sast-snyk:
     needs: setup
-    uses: ./.github/workflows/security-secrets.yml
+    uses: ./.github/workflows/security-sast-snyk.yml
+    secrets: inherit
 
-  # 2. Análisis de composición de software (SCA) : Analiza las librerías y dependencias
-  security-sca:
+  # SAST - CodeQL
+  security-sast-codeql:
     needs: setup
-    uses: ./.github/workflows/security-sca.yml
+    uses: ./.github/workflows/security-sast-codeql.yml
+    secrets: inherit
 
-  # 3. Análisis de código estático (SAST) : Revisa el código fuente sin ejecutarlo para encontrar errores de lógica, buffer overflows o inyecciones SQL.
-  security-sast:
+  # DAST - OWASP ZAP
+  security-dast-zap:
     needs: setup
-    uses: ./.github/workflows/security-sast.yml
-
-  # 4. Análisis de infraestructura (Docker/IaC) : validar la configuración segura de docker
-  security-iac:
-    needs: setup
-    uses: ./.github/workflows/security-iac.yml
+    uses: ./.github/workflows/security-dast-zap.yml
+    secrets: inherit
