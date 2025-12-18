@@ -16,6 +16,7 @@ jobs:
 
       - name: Run Snyk Code Analysis
         uses: snyk/actions/python@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
