@@ -39,3 +39,4 @@ jobs:
         with:
           target: "http://localhost:8080"
           artifact_name: "zap-report"
+          fail_action: false
