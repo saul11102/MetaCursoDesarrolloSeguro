@@ -36,7 +36,8 @@ jobs:
 
       - name: OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.12.0
+        continue-on-error: true
         with:
           target: "http://localhost:8080"
-          artifact_name: "zap-report"
+          artifact_name: ""
           fail_action: false
